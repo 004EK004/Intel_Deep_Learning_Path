@@ -1,0 +1,73 @@
+
+
+# TXT File Content
+content = """\
+Intel® Deep Learning- Week 1 Recap and Notebook Summary
+============================================================
+
+Class Overview
+--------------
+This class recaps the fundamentals of Machine Learning. Students who are already proficient in Machine Learning concepts may choose to skip to the next week's material.
+
+Notebook Overview: Gradient Descent and Linear Regression
+----------------------------------------------------------
+In this notebook, we explore the application of gradient descent to a simple linear regression problem. The key learning objectives are:
+
+1. Understand how gradient descent solves a linear regression problem.
+2. Visualise the effect of the learning rate on the trajectory in parameter space.
+3. Learn the differences between Batch Gradient Descent and Stochastic Gradient Descent (SGD).
+4. Understand the importance of shuffling data when using SGD.
+
+Data Generation
+---------------
+We generate data based on a known distribution using NumPy, where the true model is:
+
+    Y = b + θ₁ * X₁ + θ₂ * X₂ + ε
+
+Details:
+
+- Random seed is fixed using `np.random.seed(1234)` to ensure reproducibility.
+- 100 observations are generated for each predictor.
+- `X₁` and `X₂` are sampled from a uniform distribution over [0, 10].
+- `const` is a vector of ones, representing the intercept.
+- Noise `ε` is drawn from a normal distribution with mean 0 and standard deviation 0.5.
+
+Model Parameters:
+
+- Intercept (b): 1.5
+- Coefficient for X₁ (θ₁): 2
+- Coefficient for X₂ (θ₂): 5
+
+Python Code Snippet for Data Generation:
+
+```python
+np.random.seed(1234)  # Ensures reproducibility
+
+num_obs = 100
+x1 = np.random.uniform(0, 10, num_obs)
+x2 = np.random.uniform(0, 10, num_obs)
+const = np.ones(num_obs)
+eps = np.random.normal(0, 0.5, num_obs)
+
+b = 1.5
+theta_1 = 2
+theta_2 = 5
+
+y = b * const + theta_1 * x1 + theta_2 * x2 + eps
+x_mat = np.array([const, x1, x2]).T
+
+Other Notes: 
+
+- Remember to install all the required packages.
+
+-### Solve directly using sklearn
+from sklearn.linear_model import LinearRegression
+
+lr_model = LinearRegression(fit_intercept=False)
+lr_model.fit(x_mat, y)
+
+lr_model.coef_
+
+-- We use the sklearn regression model to solve the calculation at hand.
+
+-- Another interesting note is that NNs are trained by the gradient descent. The learning rate is the number of iterations.
